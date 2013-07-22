@@ -10,10 +10,10 @@
 #include <istream>
 #include <cstdlib>
 #include <stdexcept>
-#include "jsoncons/jsoncons_config.hpp"
-#include "jsoncons/json_char_traits.hpp"
-#include "jsoncons/json_listener.hpp"
-#include "jsoncons/error_handler.hpp"
+#include "jsoncons_config.hpp"
+#include "json_char_traits.hpp"
+#include "json_listener.hpp"
+#include "error_handler.hpp"
 
 namespace jsoncons {
 
@@ -64,7 +64,9 @@ public:
     basic_json_reader(std::basic_istream<Char>& is,
                       basic_json_listener<Char>& handler,
                       basic_error_handler<Char>& err_handler)
-       : is_(is), handler_(handler), err_handler_(err_handler)
+       : is_(is),
+         handler_(handler),
+         err_handler_(err_handler),
          input_buffer_(0), 
          buffer_position_(0), buffer_length_(0)
     {
@@ -75,9 +77,12 @@ public:
     basic_json_reader(std::basic_istream<Char>& is,
                       basic_json_listener<Char>& handler)
         
-       : is_(is), handler_(handler), err_handler_(default_err_handler), 
+       : is_(is),
+         handler_(handler),
+         err_handler_(default_err_handler),
          input_buffer_(0), 
-         buffer_position_(0), buffer_length_(0)
+         buffer_position_(0),
+         buffer_length_(0)
     {
 #ifdef JSONCONS_BUFFER_READ
         input_buffer_ = new Char[buffer_capacity_];
@@ -548,79 +553,55 @@ void basic_json_reader<Char>::skip_separator()
 template<class Char>
 bool basic_json_reader<Char>::read_until_match_fails(char char1, char char2, char char3)
 {
-    if (!eof())
-    {
-        Char c = read_ch();
-        if (eof())
-        {
-            err_handler_.fatal_error("Unexpected EOF", *this);
-        }
-        if (c == char1)
-        {
-            Char c = read_ch();
-            if (eof())
-            {
-                err_handler_.fatal_error("Unexpected EOF", *this);
-            }
-            if (c == char2)
-            {
-                Char c = read_ch();
-                if (eof())
-                {
-                    err_handler_.fatal_error("Unexpected EOF", *this);
-                }
-                if (c = char3)
-                {
-                    return true;
-                }
-            }
-        }
-    }
+  if (eof())
+  {
+      return false;
+  }
 
-    return false;
+  std::vector<char> chs = {char1, char2, char3};
+
+  for (char ch : chs)
+  {
+      Char c = read_ch();
+      if (eof())
+      {
+          err_handler_.fatal_error("Unexpected EOF", *this);
+      }
+
+      if (ch != c)
+      {
+          return false;
+      }
+  }
+  return true;
 }
 
 template<class Char>
 bool basic_json_reader<Char>::read_until_match_fails(char char1, char char2, char char3, char char4)
 {
-    if (!eof())
-    {
-        Char c = read_ch();
-        if (eof())
-        {
-            err_handler_.fatal_error("Unexpected EOF", *this);
-        }
-        if (c == char1)
-        {
-            Char c = read_ch();
-            if (eof())
-            {
-                err_handler_.fatal_error("Unexpected EOF", *this);
-            }
-            if (c == char2)
-            {
-                Char c = read_ch();
-                if (eof())
-                {
-                    err_handler_.fatal_error("Unexpected EOF", *this);
-                }
-                if (c = char3)
-                {
-                    Char c = read_ch();
-                    if (eof())
-                    {
-                        err_handler_.fatal_error("Unexpected EOF", *this);
-                    }
-                    if (c = char4)
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-    }
 
-    return false;
+  if (eof())
+  {
+      return false;
+  }
+
+  std::vector<char> chs = {char1, char2, char3, char4};
+
+  for (char ch : chs)
+  {
+      Char c = read_ch();
+      if (eof())
+      {
+          err_handler_.fatal_error("Unexpected EOF", *this);
+      }
+
+      if (ch != c)
+      {
+          return false;
+      }
+  }
+  return true;
+
 }
 
 template<class Char>

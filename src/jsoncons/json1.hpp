@@ -10,9 +10,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <ostream>
-#include "jsoncons/json_exception.hpp"
-#include "jsoncons/json_writer.hpp"
-#include "jsoncons/output_format.hpp"
+#include "json_exception.hpp"
+#include "json_writer.hpp"
+#include "output_format.hpp"
 
 namespace jsoncons {
 
@@ -199,14 +199,14 @@ public:
         template <class T>
         const T& custom_data() const
         {
-            return val_.get(name_).custom_data<T>();
+            return val_.get(name_).template custom_data<T>();
         }
         // Returns a const reference to the custom data associated with name
 
         template <class T>
         T& custom_data() 
         {
-            return val_.get(name_).custom_data<T>();
+            return val_.get(name_).template custom_data<T>();
         }
         // Returns a reference to the custom data associated with name
 

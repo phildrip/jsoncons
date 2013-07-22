@@ -59,8 +59,8 @@ int c99_snprintf(char* str, size_t size, const char* format, ...)
 }
 #else
 inline bool is_nan(double x) { return std::isnan( x ); }
-inline bool is_pos_inf(double x) {return std::isinf() && x > 0;}
-inline bool is_neg_inf(double x) {return  std::isinf() && x > 0;}
+inline bool is_pos_inf(double x) {return std::isinf(x) && x > 0;}
+inline bool is_neg_inf(double x) {return  std::isinf(x) && x > 0;}
 
 #define c99_snprintf std::snprintf
 

@@ -9,9 +9,9 @@
 #include <vector>
 #include <istream>
 #include <cstdlib>
-#include "jsoncons/json_char_traits.hpp"
-#include "jsoncons/json1.hpp"
-#include "jsoncons/json_listener.hpp"
+#include "json_char_traits.hpp"
+#include "json1.hpp"
+#include "json_listener.hpp"
 
 namespace jsoncons {
 

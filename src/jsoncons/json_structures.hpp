@@ -15,7 +15,7 @@
 #include <iomanip>
 #include <utility>
 #include <new>
-#include "jsoncons/json1.hpp"
+#include "json1.hpp"
 
 namespace jsoncons {
 
@@ -159,7 +159,8 @@ public:
 
     const_iterator find(const std::basic_string<Char>& name) const;
 
-    void insert(const_iterator it, std::pair<std::basic_string<Char>,basic_json<Char>> member);
+    void insert(const_iterator it, std::pair<std::basic_string<Char>, basic_json<Char>> member);
+    void insert(iterator it, std::pair<std::basic_string<Char>, basic_json<Char>> member);
 
     void push_back(std::pair<std::basic_string<Char>,basic_json<Char>> member)
     {
@@ -195,6 +196,12 @@ template <class Char>
 void json_object<Char>::insert(const_iterator it, std::pair<std::basic_string<Char>,basic_json<Char>> member)
 {
     members_.insert(it,member);
+}
+
+template <class Char>
+void json_object<Char>::insert(iterator it, std::pair<std::basic_string<Char>,basic_json<Char>> member)
+{
+    insert(it,member);
 }
 
 template <class Char>

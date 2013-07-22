@@ -13,11 +13,11 @@
 #include <algorithm>
 #include <fstream>
 #include <limits>
-#include "jsoncons/json1.hpp"
-#include "jsoncons/json_structures.hpp"
-#include "jsoncons/json_reader.hpp"
-#include "jsoncons/json_deserializer.hpp"
-#include "jsoncons/json_serializer.hpp"
+#include "json1.hpp"
+#include "json_structures.hpp"
+#include "json_reader.hpp"
+#include "json_deserializer.hpp"
+#include "json_serializer.hpp"
 
 namespace jsoncons {
 
@@ -908,7 +908,7 @@ public:
     }
     basic_pretty_print(basic_json<Char>& o,
                        const basic_output_format<Char>& format)
-        : o_(o), format_(format_)
+        : o_(o), format_(format)
     {
     }
 

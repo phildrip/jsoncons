@@ -11,8 +11,8 @@
 #include <cstring>
 #include <iostream>
 #include <cstdio>
-#include "jsoncons/json_char_traits.hpp"
-#include "jsoncons/jsoncons_config.hpp"
+#include "json_char_traits.hpp"
+#include "jsoncons_config.hpp"
 
 namespace jsoncons {
 
@@ -22,6 +22,8 @@ public:
     json_exception()
     {
     }
+
+    virtual ~json_exception() throw() {}
 };
 
 class json_exception_0 : public json_exception
@@ -31,7 +33,8 @@ public:
         : message_(s)
     {
     }
-    const char* what() const 
+    virtual ~json_exception_0() throw() {}
+    const char* what() const throw()
     {
         return message_.c_str();
     }
@@ -47,7 +50,7 @@ public:
         : format_(format), arg1_(arg1)
     {
     }
-    const char* what() const 
+    const char* what() const throw()
     {
         c99_snprintf(const_cast<char*>(message_),255, format_.c_str(),arg1_.c_str());
         return message_;
@@ -79,7 +82,8 @@ public:
           column_number_(other.column_number_)
     {
     }
-    const char* what() const
+    virtual ~json_parse_exception() throw() {}
+    const char* what() const throw()
     {
         std::ostringstream os;
         os << message_ << " on line " << line_number_ << " at column " << column_number_;

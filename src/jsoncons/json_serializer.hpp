@@ -10,11 +10,11 @@
 #include <istream>
 #include <ostream>
 #include <cstdlib>
-#include "jsoncons/jsoncons_config.hpp"
-#include "jsoncons/output_format.hpp"
-#include "jsoncons/json2.hpp"
-#include "jsoncons/json_char_traits.hpp"
-#include "jsoncons/json_writer.hpp"
+#include "jsoncons_config.hpp"
+#include "output_format.hpp"
+#include "json2.hpp"
+#include "json_char_traits.hpp"
+#include "json_writer.hpp"
 #include <limits> // std::numeric_limits
 
 namespace jsoncons {
